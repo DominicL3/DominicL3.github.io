@@ -1,0 +1,333 @@
+<!DOCTYPE HTML>
+<!--
+	Spectral by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+
+<html>
+	<head>
+		<title>Projects - Dominic LeDuc</title>
+
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+
+		<!-- MathJax for embedding math equations in webpages -->
+		<script type="text/javascript" charset="utf-8"
+		src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML,
+		https://vincenttam.github.io/javascripts/MathJaxLocal.js"></script>
+	</head>
+	<body class="is-preload">
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="index.html">Dominic LeDuc</a></h1>
+						<nav id="nav">
+							<ul>
+								<li class="special">
+									<a href="#menu" class="menuToggle"><span>Menu</span></a>
+									<div id="menu">
+										<ul>
+											<li><a href="index.html">Home</a></li>
+											<li><a href="projects.html">Projects</a></li>
+											<li><a href="research.html">Research</a></li>
+											<li><a href="images/Resume.pdf">CV/Resume</a></li>
+											<!-- <li><a href="generic.html">Generic</a></li>
+											<li><a href="elements.html">Elements</a></li> -->
+											<li><a href="contact_me.html">Contact Me</a></li>
+										</ul>
+									</div>
+								</li>
+							</ul>
+						</nav>
+					</header>
+
+				<!-- Main -->
+					<article id="main">
+						<header>
+							<h2>Projects</h2>
+							<p>Near and Far</p>
+						</header>
+						<section class="wrapper style5">
+							<div class="inner">
+								<h2>OSIRIS-REx: Image Analysis at NASA</h2>
+
+								<p>In the summer of 2018, I worked with NASA Goddard Space Flight Center on <a href="https://www.nasa.gov/osiris-rex/">OSIRIS-REx</a>,
+									a spacecraft bound for the asteroid Bennu, where it would collect a small sample and return it to Earth in September 2023.
+								</p>
+
+								<!-- OSIRIS-REx artist's rendition -->
+								<figure>
+									<center>
+										<img src="images/nasa_internship/osiris-rex.jpg" alt="" style="width:100%">
+										<figcaption>Concept art of OSIRIS-REx touching down on Bennu. Credit: <a href="https://www.nasa.gov/image-feature/osiris-rex-grabs-a-sample">NASA.</a></figcaption>
+									</center>
+								</figure>
+
+								<p>We chose Bennu for a few reasons:
+									<ol>
+										<li><b>It's close</b>. Bennu's orbit lies between Earth and Mars, which is a viable distance to fly to and
+											launch a return capsule from.
+										</li>
+										<li><b>It is old.</b> This bad boy is as old as the Solar System, so it can provide valuable insight into how
+											planetary systems formed, including our very own.
+										</li>
+										<li><b>It has ingredients for the origin of life.</b> Our telescopes tell us that Bennu is rich in carbon and organic compounds.
+											Voyaging to Bennu allows us to study the role of asteroids as a way of bringing life to Earth.</li>
+										<li><b>It can wipe out humanity!</b> Bennu <i>could</i> potentially hit Earth in ~250 years, although the chances are super low
+											(about <a href="https://cneos.jpl.nasa.gov/sentry/details.html#?des=101955">1 in 2,700</a>).
+											Still, it'd be nice to scope out a potential threat to humanity's existence, you know?
+										</li>
+
+									</ol>
+								</p>
+
+								<!-- project intro -->
+								<h3>Analyzing Mid-Flight Images</h3>
+
+								<p>As an intern at NASA Goddard, I was tasked with analyzing mid-flight images beamed back from OSIRIS-REx, which at this point
+									had been rocketing towards Bennu for 18 months of its 27-month journey. Essentially, I was checking to make sure nothing
+									wonky was going wrong with the cameras after 1.5 years in space.</p>
+
+								<p>In more technical language, I was to construct the 2D point spread functions (PSFs) of some target stars that the cameras
+									imaged at certain regions in the camera's field-of-view (FOV). Do you know what a point spread function is? I certainly didn't!
+									Going into the project, I knew nothing about PSFs, image cross-correlation, or anything related to optics except for some
+									small section in my lower-division physics courses.
+								</p>
+
+								<p>Fortunately, this man, my fabulous mentor Dr. Brent Bos, changed that.</p>
+
+								<!-- selfie with Brent! -->
+								<figure>
+									<center>
+										<img src="images/nasa_internship/selfies/brent_bos.jpg" style="width:75%">
+										<figcaption>My incredible mentor, Dr. Brent Bos, before we parted ways after the internship.</figcaption>
+									</center>
+								</figure>
+
+								<!-- talk about data background and what PSFs are -->
+								<h3>What is a PSF?</h3>
+								<p>
+									Imagine you're taking a photo of a star. In optics, we make the simplification that because the star is so far away, it appears
+									as a point source. Of course, with physics rearing its ugly head, this ideal point source concept gets destroyed by
+									<ul>
+										<li>Lens aberrations</li>
+										<li>Finite pixel size (can't represent a point source perfectly if your pixels aren't infinitesimally small themselves!)</li>
+										<li>Quantum mechanical effects, like diffraction</li>
+									</ul>
+									These factors cause the imaged point to spread out and appear blurrier, which is why we call it the "point spread function."
+									The PSF is often used as a metric for the quality of an optical system; generally, a larger spread translates to worse image quality.
+								</p>
+
+								<p>
+									<b>Technical note</b>: the PSF is the impulse response of an optical system, or the output you get when you feed in an impulse, which in
+									our 2D case is a point source. The image you actually see is the convolution of the true image with the PSF. If you know your PSF, you can use
+									it in a deconvolution algorithm (popular: <a href="https://en.wikipedia.org/wiki/Richardson-Lucy_deconvolution">Richardson-Lucy</a>)
+									to estimate the true image. This is important if you want a good pic of your space rock!
+								</p>
+
+								<h3>PSF Data from OSIRIS-REx</h3>
+								<p>
+									For this project, we analyzed the PSFs from images in data captured at 6 months (L+6) and at 18 months (L+18) after OSIRIS-REx
+									launched. The goal was to examine the change in camera quality over time. At L+6 and L+18, OSIRIS-REx imaged the stars Fomalhaut
+									and Pollux, respectively, at different regions of the camera to test the system response over the camera's FOV.
+								</p>
+								<p>
+									Here's a display showing all calibration locations in the FOV, with the target in the center for this specific image.
+								</p>
+
+								<!-- calibration PSF locations -->
+								<figure>
+									<center>
+										<img src="images/nasa_internship/psf_locations.png" style="width:100%">
+										<figcaption>Locations that the calibration star (Pollux or Fomalhaut) were imaged at.</figcaption>
+									</center>
+								</figure>
+
+								<p>Before we inspect the PSFs, we need to preprocess these images. <i>Always</i> preprocess your images.</p>
+
+								<!-- dark frame subtraction -->
+								<h4>Dark Frame Subtraction</h4>
+
+								<p>
+									First, to improve the signal-to-noise ratio (SNR) and get a better image of the calibration star,
+									we performed some dark frame subtraction, which is considered standard for space-based image sensors.
+								</p>
+
+								<p>
+									All image sensors are suspectible to noise. At longer exposures, the noise in these sensors has more
+									time to accumulate, making your object of interest harder to see. Fortunately, the fix is quite simple:
+									take a picture (or several averaged together) with the lens cap over the camera, giving you the
+									mean noise—noise we can simply subtract off from a real image. We call this the "dark frame."
+								</p>
+
+								<p>
+									I had it even easier, since all this calibration was done before my arrival to Goddard! Since we had
+									a known dark frame, I just subtracted it from every image to remove the average noise. Plain and simple.
+								</p>
+
+								<!-- hybrid PSFs -->
+								<h4>Combining PSFs</h4>
+								<p>
+									Before we continue our quest for higher signal-to-noise, I must add that during the calibration campaign at
+									L+6 months and L+18 months, the team took images of Pollux/Fomalhaut with a 0.5s exposure time and with a
+									5s exposure time in the same locations. We observed the following:
+								</p>
+
+								<ul>
+									<li>The 0.5s exposure PSFs contained good data at the centers, but weren't bright enough at the edges.</li>
+									<li>The 5s exposure PSF centers were oversaturated, but they contained valuable PSF information at the edges.</li>
+									<li>When switching exposures from 0.5s to 5s, there was a non-negligible pointing error star, such that the
+										0.5s and 5s PSF images didn't line up.</li>
+								</ul>
+
+								<p>
+									The team deliberately planned the first two points, but the third was unexpected. Brent and I devised a method to fuse
+									the information from the two exposures into one PSF, what we called "hybrid PSFs."
+								</p>
+
+								<p>In brief, to construct these hybrid PSFs, we </p>
+
+								<ol>
+									<li>Divide out the exposure time to normalize the 0.5s and 5s PSFs to the same scale.</li>
+									<li>Use a cross-correlation to find the pixel shift between the 0.5s and 5s PSF images.</li>
+									<li>Upsample the 0.5s PSFs, shift them to line up with the 5s PSFs, then downsample to their original size.</li>
+									<li>Replace every saturated pixel (i, j) in the 5s image with its counterpart pixel (i, j) in the 0.5s image.</li>
+								</ol>
+
+								<p>If you're interested, more details can be found in our <a href="#link_to_paper">paper</a>.</p>
+
+								<p>
+									Here are the constructed hybrid PSFs, positioned where they were captured in the FOV.
+								</p>
+								<!-- figures comparing NavCam 1 (NCM) PSFs at 6 and 18 months -->
+								<figure>
+									<div class="row gtr-50 gtr-uniform">
+										<div class="col-6"><span class="image fit"><img src="images/nasa_internship/ncm_psfs_6months.png" /></span></div>
+										<div class="col-6"><span class="image fit"><img src="images/nasa_internship/ncm_psfs_18months.png" /></span></div>
+									</div>
+									<figcaption>
+										<u>Left</u>: Hybrid PSFs 6 months after launch. The missing bottom left corner is due to poor data quality.
+										<br> <u>Right</u>: Hybrid PSFs 18 months after launch.
+									</figcaption>
+								</figure>
+
+								<p>
+									When comparing the L+6 to L+18 month images, these PSFs don't look too different at first glance, which is good!
+									Again, more "spread out" PSFs means more blurring of point sources which would mean a degradation in image quality.
+									We don't see much change here, indicating that image quality remained stable over time.
+								</p>
+
+								<!-- Modulation transfer functions, baby -->
+								<h3>Going Deeper: The Modulation Transfer Function</h3>
+								<p>
+									Unfortunately, we can't just look at two pictures, say they look similar, and call it a day. We actually have to look
+									at numbers! Plots! Graphs! So, let's take a look at something called the MTF.
+								</p>
+
+								<p>
+									At a high level, the modulation transfer function (what a mouthful), or MTF, measures the ability to show contrast at a given
+									level of detail. All optical systems start out being able to contrast larger image details very well, and the level of contrast drops as
+									the system has to resolve tinier details. The MTF sets out to measure how well an optical system can preserve spatial details.
+								</p>
+
+								<p>
+									<b>Technical note</b>: the MTF is magnitude of the optical system's response as a function of the input's spatial frequencies.
+									Smell like Fourier to you? It is! While the PSF measures the system's impulse response, we can get the complex-valued optical transfer
+									function (OTF) by Fourier transforming the PSF. The MTF is simply the magnitude, or absolute value, of the OTF—the phase component
+									gets dropped. In math lingo, we have
+								</p>
+
+								<!-- TODO: insert sweet MTF math -->
+								<p>$$
+									OTF(\nu) = \mathfrak{F}\{PSF\} \\
+									MTF(\nu) = \| OTF(\nu) \| = \| \mathfrak{F}\{PSF\} \|
+									$$
+								</p>
+								<p> where $\mathfrak{F}$ denotes the Fourier transform.</p>
+
+								<p>
+									Below are some MTFs at a diagonal sweep through the FOV for images taken at L+6 and L+18 months. The "horizontal MTF" originates
+									from using only a horizontal profile of the PSF for the MTF; likewise for the "vertical MTF." I didn't know what I was doing back then.
+								</p>
+
+								<!-- figures comparing MTFs for NavCam 1 (NCM) at 6 and 18 months -->
+								<figure>
+									<div class="row gtr-50 gtr-uniform">
+										<span class="image fit"><img src="images/nasa_internship/ncm_mtfs_6months.png" /></span>
+										<span class="image fit"><img src="images/nasa_internship/ncm_mtfs_18months.png" /></span>
+									</div>
+									<figcaption>
+										<u>Top</u>: NavCam 1 (NCM) MTFs for images taken 6 months after launch (L+6).
+										<br> <u>Bottom</u>: NavCam 1 (NCM) MTFs for images taken 18 months after launch (L+18).
+										<br> The MTF colors correspond to the region of the FOV where the target star was imaged.
+									</figcaption>
+								</figure>
+
+								<p>
+									Looking at the horizontal and vertical MTFs between the two calibration campaigns, we see that the MTFs don't vary significantly with time.
+									Furthermore, these mid-flight results agree with pre-launch ground tests to within measurement noise, indicating no outstanding degradation
+									of the cameras. <b>Nice.</b>
+								</p>
+
+								<p>
+									In short, our mid-flight analysis of the OSIRIS-REx cameras demonstrated that the cameras remained consistent 1.5 years into the spacecraft's journey
+									towards Bennu. At the time of writing, OSIRIS-REx had successfully and dramatically captured a sample from the asteroid on October 20, 2020
+									and is now rocketing back to Earth, hopefully returning in September 2023.
+								</p>
+
+								<!-- Thanks to all -->
+								<h3>Thanks, NASA friends!</h3>
+								<p>
+									I'm super fortunate to have this opportunity, especially since I didn't know anything as a sophomore in undergrad.
+									Thanks to the NASA Goddard Optics Branch and Dr. Brent Bos for setting me up for a fantastic career. Be sure to read the
+									paper if you're interested in the rest of the mid-flight camera calibration!
+								</p>
+
+								<!-- collage of all my NASA buds -->
+								<figure>
+									<center>
+										<img src="images/nasa_internship/selfies/collage.jpg" style="width:95%">
+										<figcaption>Thanks, Optics Branch!</figcaption>
+									</center>
+								</figure>
+
+
+								<!-- link to paper -->
+								<p id="link_to_paper">
+									Paper: <a href="https://ui.adsabs.harvard.edu/abs/2020SSRv..216...71B/abstract">In-Flight Calibration and Performance of the OSIRIS-REx Touch And Go Camera System (TAGCAMS)</a>
+								</p>
+							</div>
+						</section>
+					</article>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<ul class="icons">
+							<li><a href="contact_me.html" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+							<li><a href="https://www.linkedin.com/in/domleduc/" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+							<li><a href="https://github.com/dominicl3" class="icon brands fa-github"><span class="label">Github</span></a></li>
+							</ul>
+						<ul class="copyright">
+							<li>Dominic LeDuc &copy; 2021</li><li>Design: <a href="http://html5up.net">Spectral</a></li>
+						</ul>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE HTML>
+<!--
+	Spectral by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Research - Dominic LeDuc</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="index.html">Dominic LeDuc</a></h1>
+						<nav id="nav">
+							<ul>
+								<li class="special">
+									<a href="#menu" class="menuToggle"><span>Menu</span></a>
+									<div id="menu">
+										<ul>
+											<li><a href="index.html">Home</a></li>
+											<li><a href="projects.html">Projects</a></li>
+											<li><a href="research.html">Research</a></li>
+											<li><a href="images/Resume.pdf">CV/Resume</a></li>
+											<!-- <li><a href="generic.html">Generic</a></li>
+											<li><a href="elements.html">Elements</a></li> -->
+											<li><a href="contact_me.html">Contact Me</a></li>
+										</ul>
+									</div>
+								</li>
+							</ul>
+						</nav>
+					</header>
+
+				<!-- Main -->
+					<article id="main">
+						<header>
+							<h2>Research</h2>
+							<p>Fast Times at UC Berkeley</p>
+						</header>
+						<section class="wrapper style5">
+							<div class="inner">
+								<h2>Classifying Fast Radio Bursts and Radio Frequency Interference with Convolutional Neural Networks</h2>
+
+								<p>During my time at Berkeley, I had the pleasure of doing research in the Department of Astronomy under Dr. Vishal Gajjar,
+									a postdoc with the Breakthrough Listen team. <a href="https://seti.berkeley.edu">Breakthrough Listen's</a> main objective
+									is to search for signals of intelligent life—not too shabby of a project to partake in as an undergrad.</p>
+
+								<h4>Fast Radio Bursts</h4>
+
+								<p>Fast radio bursts (FRBs) are one of the most mysterious objects in astrophysics. Powerful radio pulses lasting a few milliseconds at max,
+									no one knows their origins, and their sources can't be tracked and studied further because they usually come once and never again from the
+									same place. Current theories for progenitors include neutron star collisions, ridiculously energetic supernovae (very cool), and the collapse
+									of the magnetospheres of supermassive black holes.</p>
+
+								<p>Some people think it could be aliens. If I were to put money on it, it's probably not.</p>
+
+								<p><b>[EDIT 1/23/2020]</b> Recently, astronomers have been building observational evidence converging on <i>magnetars</i> as the source of these fast radio bursts.
+									<a href="https://en.wikipedia.org/wiki/Magnetar"> Magnetars </a> are stars that have completed the main portion of their life fusing hydrogen into helium
+									and have collapsed into neutron stars with extreme magnetic field environments. Although we are closing in on a source, it's still a mystery as to <i>how</i> these
+									terrific bursts of electromagnetic radiation are generated.
+								</p>
+
+								<figure>
+									<center>
+										<img src="images/research_plots/181017.png" alt="" style="width:70%">
+										<figcaption>Example of a dedispersed FRB. Credit: <a href="https://astronomy.swin.edu.au/research/utmost/?p=1508">UTMOST collaboration (2018).</a></figcaption>
+									</center>
+								</figure>
+
+								<p>To study these strange phenomena, Vishal designed a pipeline to search for FRB
+									pulses from from the Green Bank and Parkes, two of the largest radio telescopes
+									in the world. Unfortunately, a major problem for current detection software is
+									radio frequency interference (RFI). Emissions like WiFi and microwave ovens would
+									very likely be mistaken for an FRB, so the pipeline accepts many false candidates.</p>
+
+								<figure>
+									<center>
+										<img src="images/research_plots/rfi.png" alt="" style="width:55%">
+										<figcaption>WiFi looks a lot like an FRB! Credit: <a href="https://www.researchgate.net/publication/4281289_Service_Discovery_and_Device_Identification_in_Cognitive_Radio_Networks">Miller et al. 2007.</a></figcaption>
+									</center>
+								</figure>
+
+								<h4>Differentiating FRBs from RFI</h4>
+
+								<p>My project focused on developing a binary classification model that would be able to
+									distinguish RFI from FRBs and whittle down the number of candidates that a human had
+									to check. I tackled this problem with convolutional neural networks, inspired by
+									the approach in <a href="https://arxiv.org/abs/1803.03084">Connor & van Leeuwen (2018)</a>.</p>
+
+								<p>Training data for FRBs is sparse, with currently only a few hundred real examples at most.
+									Because neural networks require huge amounts of data to be effective, we decided to simulate
+									them in the same way that Connor & van Leeuwen did. Here are a few of the results:</p>
+
+								<figure>
+									<center>
+										<img src="images/research_plots/sample_simulated_frbs.png" alt="" style="width:80%">
+										<figcaption>Spectrograms of simulated FRBs (left) with their corresponding signals (right).</figcaption>
+									</center>
+								</figure>
+
+								<p>After training and debugging, testing the model's performance on known FRBs delivered
+									good results, and the model was able to pick out most pulses. Below are samples of
+									predicted FRBs that the model was highly confident in (> 95% probability).</p>
+
+								<figure>
+									<center>
+										<img src="images/research_plots/website_predictions.png" alt="" style="width:80%">
+										<figcaption>Spectrograms of <b>real</b> FRBs in Breakthrough Listen data. The second image is a false positive.</figcaption>
+									</center>
+								</figure>
+
+								<p>Because we cared more about finding every single FRB, I weighted the network such that
+									it penalized false negatives, leading to a higher recall but greater chance of
+									false positives. You can see a false positive in the second prediction, which
+									has no signal in it, even though the model thought it did.</p>
+
+								I created multiple models, each trained on different simulated parameters depending on the
+								telescope and what characteristic data from that telescope would look like. As of now, my
+								models are integrated in Vishal's pipeline, happily sifting out that pesky RFI.
+
+								<hr />
+
+								<h3>Other Research</h3>
+
+								<h4>Stellar shock waves</h4>
+
+								<p>My previous research involved working with Dr. Stephen Ro to study how shock waves
+									propagated through stars in order to determine the origins of false supernovae.
+									The premier code to simulate stellar conditions, MESA, had recently included hydrodynamics
+									in its physics repertoire. By simulating explosions in stars—"setting off bombs,"
+									as Stephen would call it—and watching how the shocks traveled, I verified that MESA's
+									new hydrodynamics calculations complied with theoretical predictions.</p>
+
+								<h4>Stellar nucleosynthesis in tidal disruption events</h4>
+
+								<p>My first research experience at Berkeley also dealt with MESA and was also very cool.
+									Dr. Ken Shen and I were exploring stellar nucleosynthesis, the energy-production process
+									by which stars fuse lighter elements to make heavier ones. Specifically, we were looking
+									at what would happen to nucleosynthesis if we threw a star deep towards a black hole,
+									causing it to be squeezed a ton and wildly increasing its density and temperature.
+									This is known as a tidal disruption event, when the star is ripped apart and spaghettified
+									by the tidal forces close to a black hole.</p>
+
+								<p>After getting rough numbers for the pressure, temperature, and density a star would encounter
+									upon tidal disruption, I conducted simulations in MESA to investigate the fusion reactions
+									taking place within the star.</p>
+							</div>
+						</section>
+					</article>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<ul class="icons">
+							<li><a href="contact_me.html" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+							<li><a href="https://www.linkedin.com/in/domleduc/" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+							<li><a href="https://github.com/dominicl3" class="icon brands fa-github"><span class="label">Github</span></a></li>
+							</ul>
+						<ul class="copyright">
+							<li>Dominic LeDuc &copy; 2021</li><li>Design: <a href="http://html5up.net">Spectral</a></li>
+						</ul>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
